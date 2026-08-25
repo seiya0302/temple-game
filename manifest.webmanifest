@@ -1,11 +1,10 @@
 {
-  "name": "Cursed Temple Operations",
+  "name": "Temple Expedition Operations",
   "short_name": "Temple Ops",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#070604",
-  "theme_color": "#171109",
-  "orientation": "portrait",
-  "description": "古代神殿ライドのスマホ向け運営シミュレーションゲーム"
+  "background_color": "#050605",
+  "theme_color": "#080b09",
+  "orientation": "portrait"
 }

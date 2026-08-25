@@ -1,131 +1,50 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<title>Temple Run Operations</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<meta name="theme-color" content="#171109">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Temple Ops">
+<meta name="theme-color" content="#080b09"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.webmanifest"><title>Temple Expedition Operations</title>
 <style>
-:root{--bg:#0d0b08;--panel:#1b1710;--gold:#d8aa52;--text:#f3e5c5;--red:#b84632;--green:#5d9b63}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#070604;color:var(--text);font-family:system-ui,-apple-system,sans-serif;overflow:hidden;height:100%}
-#game{height:100dvh;max-width:520px;margin:auto;display:flex;flex-direction:column;background:linear-gradient(#0c0a07,#171109)}
-header{padding:max(10px,env(safe-area-inset-top)) 14px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #5e4827}
-h1{font-size:15px;margin:0;letter-spacing:.08em;color:#f4cf80}
-.stats{font-size:12px;text-align:right;line-height:1.45}
-#scene{position:relative;flex:1;min-height:0;overflow:hidden;background:
-radial-gradient(circle at 50% 28%,#594321 0 4%,#231a0f 17%,transparent 35%),
-linear-gradient(180deg,#19130d 0%,#080706 100%)}
-.temple{position:absolute;inset:0;opacity:.65;background:
-linear-gradient(90deg,transparent 8%,#322514 8% 13%,transparent 13% 87%,#322514 87% 92%,transparent 92%),
-repeating-linear-gradient(0deg,transparent 0 58px,#3b2c18 59px 61px)}
-.skull{position:absolute;top:12%;left:50%;transform:translateX(-50%);font-size:54px;filter:drop-shadow(0 0 18px #c99738);transition:.3s}
-.track{position:absolute;left:20%;right:20%;bottom:-5%;height:72%;clip-path:polygon(44% 0,56% 0,90% 100%,10% 100%);background:repeating-linear-gradient(0deg,#2d251b 0 8px,#0b0907 8px 26px)}
-.car{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);width:145px;height:88px;background:#5c553d;border:4px solid #29251b;border-radius:18px 18px 10px 10px;box-shadow:0 10px 30px #000}
-.car:before{content:"";position:absolute;left:15px;right:15px;top:12px;height:30px;background:#151713;border-radius:7px}
-.lights{position:absolute;bottom:10px;left:12px;right:12px;display:flex;justify-content:space-between}
-.light{width:18px;height:18px;border-radius:50%;background:#ffe49b;box-shadow:0 0 16px #ffd15a}
-#event{position:absolute;top:4%;left:14px;right:14px;text-align:center;font-weight:800;font-size:18px;text-shadow:0 2px 5px #000}
-#message{position:absolute;bottom:25%;left:16px;right:16px;background:#100d08dd;border:1px solid #80612f;border-radius:12px;padding:12px;text-align:center;font-size:14px;min-height:46px}
-#controls{padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#100d08;border-top:1px solid #5e4827}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
-button{border:1px solid #8c6a35;border-radius:12px;background:linear-gradient(#3a2b18,#21180e);color:#f9e5b8;font-weight:800;font-size:15px;min-height:54px;padding:8px;touch-action:manipulation}
-button:active{transform:scale(.97);background:#5a3d1d}
-button.primary{background:linear-gradient(#8d5b1d,#50300f);border-color:#d5a64f}
-button.danger{border-color:#8e4133;color:#ffb8aa}
-#bar{height:7px;background:#322718;border-radius:8px;overflow:hidden;margin-bottom:8px}
-#fill{height:100%;width:100%;background:#c99c45;transition:width .2s}
-.overlay{position:absolute;inset:0;background:#080604ed;display:flex;align-items:center;justify-content:center;padding:28px;z-index:10}
-.card{text-align:center;max-width:360px}
-.card h2{color:#efc46d;font-size:28px;margin:0 0 10px}.card p{line-height:1.65;color:#e7d7b5}
-.hidden{display:none}
-.small{font-size:12px;opacity:.75}
-</style>
-</head>
-<body>
-<div id="game">
-<header>
-<h1>CURSED TEMPLE<br>OPERATIONS</h1>
-<div class="stats">SCORE <b id="score">0</b><br>GUESTS <b id="guests">0</b> / WAIT <b id="wait">15</b>m</div>
-</header>
-<div id="scene">
-<div class="temple"></div><div class="skull" id="skull">💀</div><div class="track"></div>
-<div id="event">魔宮ツアー運行中</div>
-<div class="car"><div class="lights"><i class="light"></i><i class="light"></i></div></div>
-<div id="message">次の車両を出発させよう。</div>
-<div class="overlay" id="start">
- <div class="card"><h2>CURSED TEMPLE</h2><p>古代神殿のライド運営を任されたあなた。<br>安全確認、ゲスト誘導、車両出発を判断し、閉園まで運行を守れ。</p><button class="primary" onclick="startGame()">ツアーを開始</button><p class="small">スマホ縦画面推奨 / オリジナル・ファンゲーム</p></div>
-</div>
-<div class="overlay hidden" id="over"><div class="card"><h2 id="overTitle">運行終了</h2><p id="result"></p><button class="primary" onclick="location.reload()">もう一度</button></div></div>
-</div>
-<div id="controls">
-<div id="bar"><div id="fill"></div></div>
-<div class="row"><button onclick="act('load')">👥 ゲスト誘導</button><button onclick="act('check')">🔒 安全確認</button></div>
-<div class="row"><button class="primary" onclick="act('dispatch')">🚙 DISPATCH</button><button class="danger" onclick="act('stop')">🚨 非常停止</button></div>
-</div>
-</div>
+:root{--g:#e1b75d;--c:#f5e5bd}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#050605;color:var(--c);font-family:system-ui,-apple-system,sans-serif}
+#app{height:100dvh;max-width:520px;margin:auto;display:flex;flex-direction:column;background:#090b08}
+header{padding:max(9px,env(safe-area-inset-top)) 11px 7px;background:#11130d;border-bottom:1px solid #594522;display:flex;justify-content:space-between}
+.logo{font:800 12px Georgia,serif;letter-spacing:.1em;color:var(--g)}.stats{text-align:right;font-size:10px}
+#station{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(circle at 50% 18%,#69522c,#292015 20%,#0c0d0a 55%)}
+.stone{position:absolute;inset:0;opacity:.4;background:repeating-linear-gradient(0deg,transparent 0 55px,#66502b 56px 58px),repeating-linear-gradient(90deg,transparent 0 92px,#493a23 93px 95px)}
+.torch{position:absolute;top:15%;font-size:28px;filter:drop-shadow(0 0 15px #ff9b37)}.t1{left:5%}.t2{right:5%}
+#status{position:absolute;top:5%;left:10%;right:10%;text-align:center;font-weight:900;color:#ffe9ae;text-shadow:0 2px 4px #000}
+#vehicle{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);width:90%;height:45%;background:linear-gradient(#62654a,#343827 60%,#20231a);border:5px solid #25271d;border-radius:34px 34px 14px 14px;box-shadow:0 20px 35px #000}
+.wind{position:absolute;top:10px;left:12%;right:12%;height:27%;background:#101713;border:4px solid #24291e;border-radius:20px 20px 6px 6px}
+#seats{position:absolute;left:7%;right:7%;top:36%;bottom:11%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:5px}
+.seat{position:relative;background:#24251d;border:1px solid #777052;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:24px}.seat.loaded{background:#4c4932}
+.bar{position:absolute;left:7%;right:7%;top:44%;height:6px;background:#aaa58d;border:1px solid #333;border-radius:5px;transform:rotate(-25deg);transform-origin:left;transition:.25s}.seat.ok .bar{transform:rotate(0);background:#78a96d}
+#toast{position:absolute;left:12px;right:12px;bottom:55%;padding:8px;background:#090b09dd;border:1px solid #72592e;border-radius:10px;text-align:center;font-size:11px}
+#panel{padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:#0d0f0b;border-top:1px solid #594522}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+button{min-height:48px;border-radius:10px;border:1px solid #80662f;background:linear-gradient(#332a18,#1d1a11);color:#f5dfac;font-weight:800;font-size:13px}button:active{transform:scale(.97)}.primary{background:linear-gradient(#8a5c1d,#51330f)}.safe{border-color:#567a52}.danger{border-color:#86483d;color:#ffc2b7}
+#inspect{position:absolute;inset:0;background:#070806f4;z-index:9;display:none;padding:30px 17px;overflow:auto}#inspect h2{text-align:center;color:var(--g);font-family:Georgia,serif}.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.is{height:70px;background:#29291f;border:1px solid #706b50;border-radius:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:22px}.is.ok{background:#263325;border-color:#7cad72}.is span{font-size:8px}.ia{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.overlay{position:absolute;inset:0;background:#060705f2;z-index:20;display:flex;align-items:center;justify-content:center;padding:28px}.hidden{display:none}.card{text-align:center}.card h1{font:800 27px Georgia,serif;color:var(--g)}.card p{font-size:12px;line-height:1.65}.music{font-size:11px;margin-top:12px}
+</style></head><body><div id="app">
+<header><div class="logo">TEMPLE EXPEDITION<br>OPERATIONS</div><div class="stats">SCORE <b id="score">0</b><br>GUESTS <b id="gc">0</b> / WAIT <b id="wait">20</b>m</div></header>
+<section id="station"><div class="stone"></div><div class="torch t1">🔥</div><div class="torch t2">🔥</div><div id="status">LOADING PLATFORM</div>
+<div id="vehicle"><div class="wind"></div><div id="seats"></div></div><div id="toast">ゲストを乗車させてください。</div>
+<div id="inspect"><h2>SAFETY INSPECTION</h2><p style="text-align:center;font-size:11px">各座席をタップして安全バーを確認</p><div class="ig" id="ig"></div><div class="ia"><button onclick="closeI()">戻る</button><button class="safe" onclick="finishI()">✓ 確認完了</button></div></div>
+<div class="overlay" id="start"><div class="card"><h1>TEMPLE<br>EXPEDITION</h1><p>古代神殿の探検車両を安全に運行せよ。<br>12名乗車 → 全席安全確認 → DISPATCH。</p><button class="primary" onclick="startGame()">▶ 運営開始</button><div class="music">🎵 オリジナルBGM搭載・音量にご注意ください</div></div></div>
+<div class="overlay hidden" id="over"><div class="card"><h1>OPERATIONS COMPLETE</h1><p id="result"></p><button class="primary" onclick="location.reload()">もう一度</button></div></div>
+</section>
+<div id="panel"><div class="grid"><button onclick="board()">👥 12名を乗車</button><button class="safe" onclick="openI()">🔒 安全バー確認</button><button class="primary" onclick="dispatch()">🚙 DISPATCH</button><button class="danger" onclick="stop()">🚨 非常停止</button></div></div>
+<audio id="bgm" src="./temple_expedition_original.wav" loop preload="auto"></audio></div>
 <script>
-let score=0,guests=0,wait=15,time=100,running=false,loaded=false,checked=false,eventType=null,timer;
-const $=id=>document.getElementById(id);
-function msg(t){$('message').textContent=t}
-function update(){ $('score').textContent=score;$('guests').textContent=guests;$('wait').textContent=wait;$('fill').style.width=time+'%' }
-function startGame(){ $('start').classList.add('hidden');running=true;msg('ゲストを車両へ誘導してください。');timer=setInterval(tick,700) }
-function tick(){
- if(!running)return; time-=1.15; if(Math.random()<.035&&!eventType)randomEvent();
- if(time<=0){finish(true);return}
- if(Math.random()<.08)wait=Math.min(120,wait+1);
- update()
-}
-function randomEvent(){
- const r=Math.random();
- if(r<.34){eventType='bar';$('event').textContent='⚠️ 安全バー異常';msg('安全バーの確認が必要です。非常停止してください！');}
- else if(r<.67){eventType='delay';$('event').textContent='⚠️ 乗車遅延';msg('ゲストの乗車に時間がかかっています。誘導してください。');}
- else {eventType='curse';$('event').textContent='💀 神殿の呪い！';$('skull').style.transform='translateX(-50%) scale(1.35)';msg('呪いの演出発生！安全確認をして運行を継続。');}
-}
-function act(a){
- if(!running)return;
- if(a==='load'){
-  if(eventType==='delay'){eventType=null;score+=80;$('event').textContent='魔宮ツアー運行中';msg('乗車遅延を解消！');return}
-  if(loaded){score-=10;msg('すでに乗車済みです。');return}
-  loaded=true;checked=false;score+=15;msg('12名乗車。安全確認をしてください。');
- }
- if(a==='check'){
-  if(!loaded){score-=10;msg('まだゲストが乗車していません。');return}
-  checked=true;score+=20;
-  if(eventType==='curse'){eventType=null;score+=70;$('event').textContent='魔宮ツアー運行中';$('skull').style.transform='translateX(-50%)';msg('安全確認完了。呪いを突破！出発できます。')}
-  else msg('安全確認OK。DISPATCH！');
- }
- if(a==='dispatch'){
-  if(eventType==='bar'){score-=100;msg('異常発生中に出発しようとしました！');finish(false);return}
-  if(!loaded||!checked){score-=60;msg('安全確認不足！運行停止。');finish(false);return}
-  guests+=12;score+=120+Math.max(0,40-wait);wait=Math.max(5,wait-3);loaded=false;checked=false;
-  msg('車両出発！ +12名　次のゲストを誘導。');
- }
- if(a==='stop'){
-  if(eventType==='bar'){eventType=null;score+=120;$('event').textContent='魔宮ツアー運行中';msg('非常停止成功。異常を解消し、安全に運行再開！')}
-  else {score-=25;wait+=3;msg('異常なし。不要な停止で待ち時間が増えました。')}
- }
- update()
-}
-function finish(success){
- running=false;clearInterval(timer);$('over').classList.remove('hidden');
- let rank=score>1700?'S':score>1200?'A':score>750?'B':'C';
- $('overTitle').textContent=success?'閉園！運行完了':'運行中止';
- $('result').innerHTML=`ランク <b>${rank}</b><br>スコア ${Math.max(0,score)}<br>案内ゲスト ${guests}名<br>最終待ち時間 ${wait}分<br><br>${success?'神殿の一日を守り抜きました。':'安全運行を最優先に、もう一度挑戦しよう。'}`;
-}
-update();
-</script>
-
-<script>
-if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(console.error);
-  });
-}
-</script>
-
-</body></html>
+const $=x=>document.getElementById(x);let score=0,total=0,wait=20,running=false,loaded=false,checked=false,checks=Array(12).fill(false),time=100,timer;const faces=['👨🏻','👩🏻','🧑🏽','👩🏼','🧔🏻','👨🏼','👩🏽','🧑🏻','👩🏻','👨🏽','🧑🏼','👩🏼'];
+function seats(){let h='';for(let i=0;i<12;i++)h+=`<div class="seat ${loaded?'loaded':''} ${checks[i]?'ok':''}">${loaded?faces[i]+'<i class="bar"></i>':''}</div>`;$('seats').innerHTML=h}
+function u(){$('score').textContent=score;$('gc').textContent=total;$('wait').textContent=wait}function msg(x){$('toast').textContent=x}
+function startGame(){$('start').classList.add('hidden');running=true;$('bgm').volume=.32;$('bgm').play().catch(()=>{});timer=setInterval(()=>{time-=.7;if(Math.random()<.1)wait++;u();if(time<=0)end()},700)}
+function board(){if(!running)return;if(loaded){msg('すでに乗車済みです。');return}loaded=true;checks.fill(false);checked=false;score+=30;$('status').textContent='12 GUESTS LOADED';msg('12名乗車完了。安全バーを確認してください。');seats();u()}
+function openI(){if(!loaded){msg('先にゲストを乗車させてください。');return}$('inspect').style.display='block';ri()}
+function ri(){let h='';for(let i=0;i<12;i++)h+=`<div class="is ${checks[i]?'ok':''}" onclick="ck(${i})">${faces[i]}<span>${checks[i]?'✓ LOCKED':'TAP TO CHECK'}</span></div>`;$('ig').innerHTML=h}
+function ck(i){checks[i]=true;score+=5;ri();seats();u();navigator.vibrate?.(15)}
+function finishI(){if(!checks.every(Boolean)){msg('未確認の座席があります。');return}checked=true;score+=50;$('inspect').style.display='none';$('status').textContent='SAFETY CHECK ✓';msg('全席LOCKED。DISPATCHできます。');u()}
+function closeI(){$('inspect').style.display='none'}
+function dispatch(){if(!loaded){msg('車両は空です。');return}if(!checked){score-=40;msg('⚠️ 安全確認未完了。出発できません。');navigator.vibrate?.(100);u();return}total+=12;score+=160;wait=Math.max(5,wait-4);loaded=false;checked=false;checks.fill(false);$('status').textContent='VEHICLE DISPATCHED';msg('安全に出発！ 次の車両をロード。');seats();u();setTimeout(()=>$('status').textContent='LOADING PLATFORM',900)}
+function stop(){score-=10;wait+=2;$('status').textContent='EMERGENCY STOP';msg('非常停止しました。');navigator.vibrate?.([80,50,80]);u()}
+function end(){running=false;clearInterval(timer);$('bgm').pause();let r=score>1500?'S':score>1000?'A':score>600?'B':'C';$('result').innerHTML=`ランク <b>${r}</b><br>スコア ${Math.max(0,score)}<br>案内ゲスト ${total}名`;$('over').classList.remove('hidden')}
+seats();u();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script></body></html>
