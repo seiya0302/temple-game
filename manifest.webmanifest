@@ -1,10 +1,10 @@
 {
-  "name": "Temple Expedition Operations",
+  "name": "Temple Expedition Operations v4",
   "short_name": "Temple Ops",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#050605",
-  "theme_color": "#080b09",
+  "background_color": "#050604",
+  "theme_color": "#090a07",
   "orientation": "portrait"
 }
