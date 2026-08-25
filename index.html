@@ -2,56 +2,55 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#090a07"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="./manifest.webmanifest"><title>Temple Expedition Operations v4</title>
+<link rel="manifest" href="./manifest.webmanifest"><title>Temple Expedition Loading Ops v5</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;background:#050604;color:#f4e3b9;font-family:system-ui,-apple-system,sans-serif}
 #app{height:100dvh;max-width:520px;margin:auto;display:flex;flex-direction:column;background:#090a07}
-header{padding:max(8px,env(safe-area-inset-top)) 10px 7px;background:#12130d;border-bottom:1px solid #64502b;display:flex;justify-content:space-between;align-items:center}
-.logo{font:800 12px Georgia;color:#e3b75b;letter-spacing:.1em}.stats{text-align:right;font-size:10px;line-height:1.4}
-#world{position:relative;flex:1;overflow:hidden;background:radial-gradient(circle at 50% 18%,#6c542b,#2b2115 22%,#0b0d09 60%)}
-.stone{position:absolute;inset:0;opacity:.35;background:repeating-linear-gradient(0deg,transparent 0 50px,#6d5730 51px 53px),repeating-linear-gradient(90deg,transparent 0 90px,#493b25 91px 93px)}
-#queue{position:absolute;top:11%;left:5%;right:5%;height:13%;display:flex;align-items:center;gap:3px;overflow:hidden;padding:5px;border:1px solid #66502a;border-radius:8px;background:#0b0c09aa}
-.qg{font-size:21px;animation:bob .8s infinite alternate}@keyframes bob{to{transform:translateY(-2px)}}
-#status{position:absolute;top:3%;left:5%;right:5%;text-align:center;font-weight:900;color:#ffe8a9}
-#vehicle{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);width:92%;height:45%;background:linear-gradient(#65694b,#363a28 60%,#202319);border:5px solid #26291d;border-radius:35px 35px 13px 13px;box-shadow:0 20px 35px #000;transition:.7s}
-#vehicle.depart{transform:translate(-50%,-230px) scale(.45);opacity:.05}
-.wind{position:absolute;top:10px;left:12%;right:12%;height:25%;background:#101612;border:4px solid #272c20;border-radius:20px 20px 6px 6px}
-#seats{position:absolute;left:6%;right:6%;top:34%;bottom:10%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:4px}
-.seat{position:relative;background:#25261d;border:1px solid #777154;border-radius:7px;display:flex;justify-content:center;align-items:center;font-size:23px}.seat.loaded{background:#4c4932}.bar{position:absolute;left:8%;right:8%;top:44%;height:6px;background:#aaa58d;border:1px solid #333;transform:rotate(-25deg);transform-origin:left;transition:.2s}.seat.ok .bar{transform:rotate(0);background:#78a96d}
-#toast{position:absolute;left:10px;right:10px;bottom:52%;background:#090b09e8;border:1px solid #795f30;border-radius:9px;padding:8px;text-align:center;font-size:11px}
-#event{position:absolute;left:8%;right:8%;top:27%;display:none;background:#561f19e8;border:1px solid #c25c45;padding:8px;border-radius:9px;text-align:center;font-weight:800;font-size:12px;z-index:5}
-#panel{padding:7px 9px calc(7px + env(safe-area-inset-bottom));background:#0d0f0b;border-top:1px solid #594522}.meter{height:5px;background:#28261c;margin-bottom:6px;border-radius:5px;overflow:hidden}.meter div{height:100%;background:#d2a64c}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}button{min-height:46px;border:1px solid #80662f;border-radius:9px;background:linear-gradient(#332a18,#1c1910);color:#f5dfac;font-weight:800;font-size:12px}.primary{background:linear-gradient(#8a5c1d,#50310e)}.safe{border-color:#547b50}.danger{border-color:#8a473b;color:#ffc0b5}
-#inspect,#brief{position:absolute;inset:0;background:#070806f5;z-index:12;display:none;padding:28px 16px;overflow:auto}h2{text-align:center;color:#e1b65b;font-family:Georgia}.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.is{height:68px;border:1px solid #716c50;border-radius:8px;background:#29291f;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:21px}.is.ok{background:#263325;border-color:#7cad72}.is span{font-size:8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
-.overlay{position:absolute;inset:0;background:#060705f3;z-index:20;display:flex;align-items:center;justify-content:center;padding:25px}.hidden{display:none}.card{text-align:center}.card h1{font:800 27px Georgia;color:#e2b65a}.card p{font-size:12px;line-height:1.65}.badge{display:inline-block;border:1px solid #71592f;border-radius:20px;padding:4px 9px;font-size:10px;margin:3px}
+header{padding:max(8px,env(safe-area-inset-top)) 10px 6px;background:#11130d;border-bottom:1px solid #65502a;display:flex;justify-content:space-between}.logo{font:800 11px Georgia;color:#e4b85c}.stats{text-align:right;font-size:9px;line-height:1.45}
+#world{position:relative;flex:1;overflow:hidden;background:radial-gradient(circle at 50% 10%,#70572d,#2c2215 24%,#0a0c08 64%)}
+#partyCard{position:absolute;top:3%;left:8px;right:8px;background:#12130ee8;border:1px solid #806531;border-radius:10px;padding:8px;display:flex;justify-content:space-between;align-items:center}
+#partySize{font:900 27px Georgia;color:#f0c86f}.label{font-size:9px;opacity:.75}.single{font-size:11px;text-align:right}
+#vehicle{position:absolute;left:4%;right:4%;top:22%;height:45%;background:linear-gradient(#626648,#353928);border:4px solid #24271c;border-radius:26px 26px 12px 12px}
+.wind{position:absolute;left:12%;right:12%;top:8px;height:20%;background:#111713;border:3px solid #252a1e;border-radius:16px}
+#rows{position:absolute;left:6%;right:6%;top:31%;bottom:8%;display:grid;grid-template-rows:repeat(3,1fr);gap:5px}.row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;border-left:3px solid #9c7d3d;padding-left:4px}.seat{position:relative;border:1px solid #716c50;background:#24251d;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px}.seat.filled{background:#49472f}.seat.selected{outline:2px solid #e7bc5e}.seat .bar{position:absolute;left:8%;right:8%;top:45%;height:5px;background:#aaa58d;transform:rotate(-24deg);transform-origin:left}.seat.lock .bar{transform:rotate(0);background:#72a36a}
+.rowname{position:absolute;left:-1px;font-size:8px;color:#d6b566}
+#msg{position:absolute;left:8px;right:8px;top:69%;min-height:44px;background:#090b09e8;border:1px solid #72592e;border-radius:9px;padding:8px;text-align:center;font-size:11px}
+#actions{position:absolute;left:8px;right:8px;bottom:2%;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+button{min-height:43px;border:1px solid #80662f;border-radius:9px;background:linear-gradient(#332a18,#1c1910);color:#f5dfac;font-weight:800;font-size:11px}.primary{background:linear-gradient(#8a5c1d,#50310e)}.safe{border-color:#547b50}.blue{border-color:#52727e}
+.overlay{position:absolute;inset:0;background:#060705f5;z-index:20;display:flex;align-items:center;justify-content:center;padding:24px}.hidden{display:none}.card{text-align:center}.card h1{font:800 26px Georgia;color:#e3b75b}.card p{font-size:11px;line-height:1.65}
+#inspect{position:absolute;inset:0;background:#070806f7;z-index:15;display:none;padding:28px 15px}.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.is{height:67px;border:1px solid #716c50;border-radius:8px;background:#29291f;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:21px}.is.ok{background:#263325;border-color:#7cad72}.is.empty{opacity:.25}.is span{font-size:8px}.ia{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+#summary{font-size:10px;margin-top:4px;color:#dfc582}
 </style></head><body><div id="app">
-<header><div class="logo">TEMPLE EXPEDITION<br>OPERATIONS v4</div><div class="stats">SCORE <b id="score">0</b><br>GUESTS <b id="gc">0</b> / WAIT <b id="wait">18</b>m<br>STREAK <b id="streak">0</b></div></header>
-<section id="world"><div class="stone"></div><div id="status">LOADING PLATFORM</div><div id="queue"></div><div id="event"></div>
-<div id="vehicle"><div class="wind"></div><div id="seats"></div></div><div id="toast">待機列からゲストを案内してください。</div>
-<div id="inspect"><h2>SAFETY INSPECTION</h2><p style="text-align:center;font-size:11px">12席を1席ずつタップして確認</p><div class="ig" id="ig"></div><div class="actions"><button onclick="closeI()">戻る</button><button class="safe" onclick="finishI()">✓ 確認完了</button></div></div>
-<div class="overlay" id="start"><div class="card"><h1>TEMPLE<br>EXPEDITION</h1><div><span class="badge">QUEUE</span><span class="badge">SAFETY</span><span class="badge">DISPATCH</span></div><p>混雑する古代神殿の乗降場を運営せよ。<br>待機列管理・12席安全確認・トラブル対応で高スコアを目指します。</p><button class="primary" onclick="startGame()">▶ OPEN ATTRACTION</button><p style="font-size:10px">🎵 オリジナルBGM / 60秒ループ</p></div></div>
-<div class="overlay hidden" id="over"><div class="card"><h1>CLOSING TIME</h1><p id="result"></p><button class="primary" onclick="location.reload()">再挑戦</button></div></div>
-</section>
-<div id="panel"><div class="meter"><div id="timebar" style="width:100%"></div></div><div class="grid">
-<button onclick="board()">👥 ゲスト案内</button><button class="safe" onclick="openI()">🔒 安全確認</button>
-<button class="primary" onclick="dispatch()">🚙 DISPATCH</button><button class="danger" onclick="emergency()">🚨 トラブル対応</button></div></div>
-<audio id="bgm" src="./temple_original_v4.wav" loop preload="auto"></audio></div>
+<header><div class="logo">TEMPLE EXPEDITION<br>LOADING OPERATIONS v5</div><div class="stats">SCORE <b id="score">0</b><br>GUESTS <b id="gc">0</b><br>EMPTY SEATS <b id="emptyTotal">0</b></div></header>
+<section id="world">
+<div id="partyCard"><div><div class="label">NEXT PARTY</div><span id="partySize">--</span><span style="font-size:11px">名様</span><div id="summary"></div></div><div class="single">SINGLE RIDER<br>STOCK <b id="sr">0</b>名</div></div>
+<div id="vehicle"><div class="wind"></div><div id="rows"></div></div><div id="msg">次のグループを座席へ案内します。</div>
+<div id="actions"><button onclick="newParty()">👥 次の組を呼ぶ</button><button class="blue" onclick="useSingles()">🧍 シングル補充</button><button class="safe" onclick="openInspect()">🔒 安全確認</button><button class="primary" onclick="dispatch()">🚙 DISPATCH</button></div>
+<div id="inspect"><h2 style="text-align:center;color:#e2b65a;font-family:Georgia">SAFETY CHECK</h2><p style="text-align:center;font-size:10px">着席しているゲストのみ確認</p><div class="ig" id="ig"></div><div class="ia"><button onclick="closeInspect()">戻る</button><button class="safe" onclick="finishInspect()">✓ 確認完了</button></div></div>
+<div class="overlay" id="start"><div class="card"><h1>LOADING<br>OPERATIONS</h1><p>1〜6名のグループを12席へ効率よく案内。<br>グループをなるべく分断せず、空席はシングルライダーで埋めよう。<br><br>空席のまま出発すると減点。</p><button class="primary" onclick="startGame()">▶ 運営開始</button><p>🎵 新オリジナル・シネマティック冒険BGM</p></div></div>
+</section><audio id="bgm" src="./temple_adventure_original_v5.wav" loop preload="auto"></audio></div>
 <script>
-const $=x=>document.getElementById(x);const faces=['👨🏻','👩🏻','🧑🏽','👩🏼','🧔🏻','👨🏼','👩🏽','🧑🏻','👩🏻','👨🏽','🧑🏼','👩🏼'];let score=0,total=0,wait=18,streak=0,time=100,running=false,loaded=false,checked=false,checks=Array(12).fill(false),problem=null,timer;
-function seats(){let h='';for(let i=0;i<12;i++)h+=`<div class="seat ${loaded?'loaded':''} ${checks[i]?'ok':''}">${loaded?faces[i]+'<i class="bar"></i>':''}</div>`;$('seats').innerHTML=h}
-function queue(){let n=Math.min(16,Math.max(4,Math.floor(wait/3)));$('queue').innerHTML=Array.from({length:n},(_,i)=>`<span class="qg">${faces[i%12]}</span>`).join('')}
-function u(){$('score').textContent=score;$('gc').textContent=total;$('wait').textContent=wait;$('streak').textContent=streak;$('timebar').style.width=time+'%';queue()}function msg(x){$('toast').textContent=x}
-function startGame(){$('start').classList.add('hidden');running=true;$('bgm').volume=.3;$('bgm').play().catch(()=>{});timer=setInterval(tick,700);u()}
-function tick(){time-=.62;if(Math.random()<.16)wait=Math.min(90,wait+1);if(!problem&&Math.random()<.035)makeProblem();u();if(time<=0)end()}
-function makeProblem(){problem=Math.random()<.5?'bag':'bar';$('event').style.display='block';$('event').textContent=problem==='bag'?'⚠️ 荷物が車両からはみ出しています':'⚠️ センサーが安全バー異常を検知';msg('トラブル対応が必要です。DISPATCHしないでください。');navigator.vibrate?.([70,40,70])}
-function board(){if(!running)return;if(problem){msg('先にトラブルを解消してください。');return}if(loaded){msg('すでに12名乗車済みです。');return}loaded=true;checked=false;checks.fill(false);score+=25;wait=Math.max(5,wait-2);$('status').textContent='12 GUESTS LOADED';msg('12名乗車。全席の安全バーを確認。');seats();u()}
-function openI(){if(!loaded){msg('先にゲストを乗車させてください。');return}$('inspect').style.display='block';ri()}
-function ri(){let h='';for(let i=0;i<12;i++)h+=`<div class="is ${checks[i]?'ok':''}" onclick="ck(${i})">${faces[i]}<span>${checks[i]?'✓ LOCKED':'TAP TO CHECK'}</span></div>`;$('ig').innerHTML=h}
-function ck(i){if(checks[i])return;checks[i]=true;score+=4;ri();seats();navigator.vibrate?.(10);u()}
-function finishI(){if(!checks.every(Boolean)){msg('未確認席があります。');return}checked=true;score+=45;$('inspect').style.display='none';$('status').textContent='SAFETY CHECK ✓';msg('安全確認完了。DISPATCH！');u()}
-function closeI(){$('inspect').style.display='none'}
-function dispatch(){if(problem){score-=100;streak=0;msg('⚠️ 異常中です！非常停止してください。');navigator.vibrate?.(150);u();return}if(!loaded||!checked){score-=35;streak=0;msg('安全確認が完了していません。');u();return}streak++;let bonus=Math.min(100,streak*10);score+=150+bonus;total+=12;wait=Math.max(5,wait-4);loaded=false;checked=false;checks.fill(false);$('status').textContent='VEHICLE DISPATCHED +'+bonus;$('vehicle').classList.add('depart');msg('出発成功！連続安全運行ボーナス +'+bonus);u();setTimeout(()=>{$('vehicle').classList.remove('depart');$('status').textContent='NEXT VEHICLE READY';seats()},750)}
-function emergency(){if(problem){score+=90;problem=null;$('event').style.display='none';$('status').textContent='PROBLEM CLEARED';msg('トラブル解消！運行を再開できます。');navigator.vibrate?.(30)}else{score-=15;wait+=2;msg('異常なし。不必要な停止で待ち時間増加。')}u()}
-function end(){running=false;clearInterval(timer);$('bgm').pause();let r=score>1800?'S':score>1300?'A':score>800?'B':'C';$('result').innerHTML=`ランク <b>${r}</b><br>スコア ${Math.max(0,score)}<br>案内ゲスト ${total}名<br>最大連続安全運行 ${streak}<br>最終待ち時間 ${wait}分`;$('over').classList.remove('hidden')}
-seats();u();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+const $=x=>document.getElementById(x),faces=['👨🏻','👩🏻','🧑🏽','👩🏼','🧔🏻','👨🏼','👩🏽','🧑🏻','👩🏻','👨🏽','🧑🏼','👩🏼'];
+let seats=Array(12).fill(null),locks=Array(12).fill(false),party=null,singles=3,score=0,total=0,emptyTotal=0,checked=false,partyId=0;
+function msg(x){$('msg').textContent=x}function update(){$('score').textContent=score;$('gc').textContent=total;$('sr').textContent=singles;$('emptyTotal').textContent=emptyTotal;render()}
+function render(){let h='';for(let r=0;r<3;r++){h+=`<div class="row">`;for(let c=0;c<4;c++){let i=r*4+c,s=seats[i];h+=`<div class="seat ${s?'filled':''} ${locks[i]?'lock':''}" onclick="seatTap(${i})">${s?s.face:''}${s?'<i class="bar"></i>':''}</div>`}h+='</div>'}$('rows').innerHTML=h}
+function startGame(){$('start').classList.add('hidden');$('bgm').volume=.34;$('bgm').play().catch(()=>{});newParty();update()}
+function freeRuns(){let runs=[];for(let r=0;r<3;r++){let start=-1;for(let c=0;c<=4;c++){let free=c<4&&!seats[r*4+c];if(free&&start<0)start=c;if((!free||c==4)&&start>=0){runs.push({r,start,len:c-start});start=-1}}}return runs}
+function newParty(){if(party){msg('現在のグループを先に案内してください。');return}let sizes=[1,2,2,3,3,4,4,5,5,6],size=sizes[Math.floor(Math.random()*sizes.length)];party={size,id:++partyId};$('partySize').textContent=size;$('summary').textContent=size>=5?'複数列への分割が必要です':'';msg(`${size}名様。空席をタップして案内してください。`)}
+function seatTap(i){if(!party)return;if(seats[i]){msg('その席は使用中です。');return}let needed=party.size, chosen=[]; // Auto-seat from tapped position, preserving party in rows
+let r=Math.floor(i/4), c=i%4;
+for(let x=c;x<4&&chosen.length<needed;x++){let idx=r*4+x;if(!seats[idx])chosen.push(idx);else break}
+let remain=needed-chosen.length;
+if(remain>0){let runs=freeRuns().filter(x=>x.r!==r).sort((a,b)=>b.len-a.len);for(let run of runs){for(let x=run.start;x<run.start+run.len&&remain>0;x++){chosen.push(run.r*4+x);remain--}if(remain<=0)break}}
+if(chosen.length<needed){msg('このグループ全員分の空席がありません。安全確認へ進むか、空席をシングルで補充してください。');return}
+chosen.forEach((idx,j)=>seats[idx]={face:faces[(party.id+j)%faces.length],party:party.id});
+score+=needed*8;total+=needed;msg(`${needed}名様をご案内しました。${needed>=5?' グループを複数列に分けて着席。':''}`);party=null;$('partySize').textContent='--';$('summary').textContent='';checked=false;update()}
+function useSingles(){let empties=seats.map((x,i)=>x?null:i).filter(x=>x!==null);if(!empties.length){msg('満席です。安全確認へ。');return}if(!singles){msg('シングルライダーのストックがありません。');return}let n=Math.min(singles,empties.length);for(let j=0;j<n;j++)seats[empties[j]]={face:'🧍',party:'S'};singles-=n;total+=n;score+=n*12;msg(`シングルライダー${n}名で空席を補充しました。`);checked=false;update()}
+function openInspect(){if(party){msg('案内中のグループがあります。');return}if(!seats.some(Boolean)){msg('まだ誰も乗車していません。');return}$('inspect').style.display='block';renderInspect()}
+function renderInspect(){let h='';for(let i=0;i<12;i++){let s=seats[i];h+=`<div class="is ${!s?'empty':''} ${locks[i]?'ok':''}" onclick="lock(${i})">${s?s.face:'—'}<span>${!s?'EMPTY':locks[i]?'✓ LOCKED':'TAP TO CHECK'}</span></div>`}$('ig').innerHTML=h}
+function lock(i){if(!seats[i]||locks[i])return;locks[i]=true;score+=3;renderInspect();update()}
+function finishInspect(){for(let i=0;i<12;i++)if(seats[i]&&!locks[i]){msg('未確認のゲストがいます。');return}checked=true;$('inspect').style.display='none';msg('安全確認完了。空席を確認してDISPATCH。');score+=30;update()}
+function closeInspect(){$('inspect').style.display='none'}
+function dispatch(){if(!checked){msg('安全確認が完了していません。');score-=20;update();return}let empty=seats.filter(x=>!x).length;let penalty=empty*35;score-=penalty;emptyTotal+=empty;if(empty)msg(`出発！ 空席${empty}席 → -${penalty}点。次車両へ。`);else{score+=120;msg('満席で出発！ PERFECT LOAD +120点');}seats.fill(null);locks.fill(false);checked=false;singles=Math.min(8,singles+(Math.random()<.7?1:2));setTimeout(newParty,500);update()}
+render();update();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
 </script></body></html>
