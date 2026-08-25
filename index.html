@@ -1,76 +1,45 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#080906"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="./manifest.webmanifest"><title>Temple Expedition: Relic Loading v6</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#080805"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.webmanifest"><title>Temple Expedition Portrait</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;background:#050604;color:#f5e3b5;font-family:system-ui,-apple-system,sans-serif}
-#app{height:100dvh;max-width:520px;margin:auto;display:flex;flex-direction:column;background:#080906}
-header{padding:max(7px,env(safe-area-inset-top)) 9px 6px;background:linear-gradient(#20180d,#0c0d08);border-bottom:2px solid #7b5b29;display:flex;justify-content:space-between;position:relative}
-.logo{font:800 11px Georgia;color:#e6bd62;letter-spacing:.08em;text-shadow:0 1px #000}.stats{text-align:right;font-size:9px;line-height:1.4}
-.relics{position:absolute;left:50%;transform:translateX(-50%);top:4px;font-size:17px;white-space:nowrap;filter:drop-shadow(0 2px 2px #000)}
-#world{position:relative;flex:1;overflow:hidden;background:radial-gradient(circle at 50% 5%,#705328,#2d2114 23%,#090b07 65%)}
-.stone{position:absolute;inset:0;opacity:.3;background:repeating-linear-gradient(0deg,transparent 0 45px,#74572d 46px 48px),repeating-linear-gradient(90deg,transparent 0 86px,#4d3a21 87px 89px)}
-.snake{position:absolute;font-size:31px;filter:drop-shadow(0 4px 3px #000);animation:slither 2.8s ease-in-out infinite alternate}.s1{left:2%;top:31%;transform:rotate(28deg)}.s2{right:1%;top:53%;transform:scaleX(-1) rotate(20deg)}@keyframes slither{to{translate:0 7px}}
-.pyramid{position:absolute;right:5%;top:8%;font-size:37px;opacity:.8;filter:sepia(1) drop-shadow(0 3px 3px #000)}
-#party{position:absolute;top:3%;left:8px;right:8px;background:linear-gradient(90deg,#17140dE8,#2c2011E8,#17140dE8);border:1px solid #9b7435;border-radius:7px;padding:7px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #000}
-#partySize{font:900 25px Georgia;color:#f2c96d}.small{font-size:9px;opacity:.78}.single{text-align:right;font-size:10px}
-#vehicle{position:absolute;left:5%;right:5%;top:22%;height:43%;background:linear-gradient(#696848,#3c3b27 60%,#222219);border:5px solid #2c291d;border-radius:29px 29px 11px 11px;box-shadow:0 16px 25px #000}
-.wind{position:absolute;left:13%;right:13%;top:8px;height:20%;background:radial-gradient(circle,#263324,#0c100c);border:4px solid #28291e;border-radius:17px}.idol{position:absolute;left:50%;top:10px;transform:translateX(-50%);font-size:24px;filter:drop-shadow(0 0 8px #d4a548)}
-#rows{position:absolute;left:6%;right:6%;top:32%;bottom:8%;display:grid;grid-template-rows:repeat(3,1fr);gap:5px}.row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.seat{position:relative;border:1px solid #777052;background:#25251c;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:19px}.seat.filled{background:#504a30}.seat.lock{box-shadow:inset 0 0 0 2px #6b9e65}.bar{position:absolute;left:7%;right:7%;top:43%;height:5px;background:#b4aa8a;border:1px solid #3b392f;border-radius:4px;transform:rotate(-25deg);transform-origin:left}.seat.lock .bar{transform:rotate(0);background:#79aa70}
-#msg{position:absolute;left:9px;right:9px;top:68%;min-height:42px;background:#090a08e8;border:1px solid #84642e;border-radius:8px;padding:7px;text-align:center;font-size:10px}
-#actions{position:absolute;left:9px;right:9px;bottom:2%;display:grid;grid-template-columns:1fr 1fr;gap:6px}button{min-height:42px;border:1px solid #86652e;border-radius:8px;background:linear-gradient(#3a2b16,#1d170d);color:#f5dfab;font-weight:800;font-size:11px}button:active{transform:scale(.97)}button:disabled{opacity:.35}.primary{background:linear-gradient(#96631c,#54340e)}.safe{border-color:#557c50}.blue{border-color:#557582}
-#inspect{position:absolute;inset:0;background:radial-gradient(circle at 50% 10%,#3d2c15,#080906 55%);z-index:15;display:none;padding:23px 14px;overflow:auto}
-#inspect h2{text-align:center;margin:3px;color:#e5b85c;font:800 21px Georgia}.instruction{text-align:center;font-size:10px;margin:4px 0 9px}
-#checkVehicle{position:relative;border:2px solid #66512b;border-radius:18px;padding:10px;background:#191910;box-shadow:inset 0 0 25px #000}
-.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.is{height:65px;border:1px solid #716c50;border-radius:8px;background:#29291f;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:20px;position:relative}.is.ok{background:#263325;border-color:#7cad72}.is.empty{opacity:.22}.is span{font-size:7px}.checkbar{position:absolute;left:9%;right:9%;top:45%;height:6px;background:#c3b99c;border-radius:5px;transform:rotate(-28deg);transform-origin:left;transition:.2s}.is.ok .checkbar{transform:rotate(0);background:#7fba76;box-shadow:0 0 7px #75b56d}
-#scan{height:5px;margin:9px 0;background:#252219;border-radius:6px;overflow:hidden}#scanFill{height:100%;width:0;background:#7fb374;transition:.25s}
-.ia{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
-.overlay{position:absolute;inset:0;background:#050604f5;z-index:20;display:flex;align-items:center;justify-content:center;padding:24px}.hidden{display:none}.card{text-align:center}.card h1{font:800 26px Georgia;color:#e3b75b;text-shadow:0 2px #000}.card p{font-size:11px;line-height:1.65}.heroicons{font-size:35px;letter-spacing:8px;filter:drop-shadow(0 4px 3px #000)}
-</style></head><body><div id="app">
-<header><div class="logo">TEMPLE EXPEDITION<br>RELIC LOADING v6</div><div class="relics">💀 🎩</div><div class="stats">SCORE <b id="score">0</b><br>GUESTS <b id="gc">0</b><br>EMPTY <b id="emptyTotal">0</b></div></header>
-<section id="world"><div class="stone"></div><div class="snake s1">🐍</div><div class="snake s2">🐍</div><div class="pyramid">🔺</div>
-<div id="party"><div><span id="partySize">--</span><span class="small"> 名様 / NEXT PARTY</span><div id="hint" class="small"></div></div><div class="single">SINGLE RIDER<br><b id="sr">3</b>名</div></div>
-<div id="vehicle"><div class="wind"></div><div class="idol">💀</div><div id="rows"></div></div>
-<div id="msg">ゲストを効率よく案内してください。</div>
-<div id="actions"><button id="nextBtn" onclick="newParty()">👥 次の組</button><button class="blue" onclick="useSingles()">🧍 シングル補充</button><button class="safe" onclick="openInspect()">🔐 安全確認</button><button class="primary" onclick="dispatch()">🚙 DISPATCH</button></div>
-<div id="inspect"><h2>💀 SAFETY CHAMBER 🎩</h2><p class="instruction">ゲストを1席ずつタップして、安全バーを引き下ろす</p><div id="checkVehicle"><div class="ig" id="ig"></div><div id="scan"><div id="scanFill"></div></div></div><div class="ia"><button onclick="closeInspect()">乗り場へ戻る</button><button class="safe" onclick="finishInspect()">✓ ALL CLEAR</button></div></div>
-<div class="overlay" id="start"><div class="card"><div class="heroicons">💀🎩🐍🔺</div><h1>THE RELIC<br>EXPEDITION</h1><p>呪われた遺跡の探検車両を運営せよ。<br>グループを効率よく配置し、空席をシングルライダーで埋め、安全バーを全席確認して出発。</p><button class="primary" onclick="startGame()">▶ 神殿をOPEN</button><p>🎵 オリジナル冒険活劇BGM</p></div></div>
-</section><audio id="bgm" src="./temple_adventure_v6.wav" loop preload="auto"></audio></div>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030402;color:#f5dfaa;font-family:system-ui,-apple-system,sans-serif}
+#app{width:100%;height:100dvh;max-width:480px;margin:auto;display:flex;flex-direction:column;position:relative;background:radial-gradient(circle at 50% 5%,#60441f,#161108 35%,#050603 75%)}
+header{height:11%;min-height:74px;padding:max(8px,env(safe-area-inset-top)) 12px 5px;background:linear-gradient(#21170b,#090a06);border-bottom:2px solid #8b652b;display:flex;justify-content:space-between;align-items:center}
+.title{font:900 18px Georgia;color:#efbd59;line-height:.9;text-shadow:0 3px #000;transform:skew(-4deg)}.title small{font-size:8px;letter-spacing:.13em}.stat{text-align:right;font-size:10px;line-height:1.5}
+#scene{flex:1;min-height:0;position:relative;overflow:hidden}.wall{position:absolute;inset:0;opacity:.28;background:repeating-linear-gradient(0deg,transparent 0 47px,#75552a 48px 50px),repeating-linear-gradient(90deg,transparent 0 88px,#49351e 89px 91px);animation:glow 3s infinite alternate}@keyframes glow{to{filter:brightness(1.35)}}
+.decor{position:absolute;font-size:34px;filter:drop-shadow(0 4px 3px #000);z-index:1}.sk{left:-4px;top:24%;animation:f 2s infinite alternate}.ht{right:2px;top:25%;animation:r 2.2s infinite alternate}.sn{right:-5px;bottom:17%;animation:s 2s infinite alternate}.py{left:1px;bottom:18%;animation:f 2.8s infinite alternate}@keyframes f{to{transform:translateY(8px)}}@keyframes r{to{transform:rotate(12deg)}}@keyframes s{to{transform:translate(-8px,7px) rotate(8deg)}}
+#party{position:absolute;z-index:3;top:2%;left:3%;right:3%;height:11%;min-height:65px;padding:7px 10px;background:linear-gradient(90deg,#181108ef,#35230fef,#181108ef);border:1px solid #9c7130;border-radius:10px;box-shadow:0 5px 16px #000;display:flex;justify-content:space-between}.next{font-size:9px}.next b{font:900 27px Georgia;color:#ffd375}.single{text-align:right;font-size:10px}
+#board{position:absolute;z-index:3;top:15%;left:13%;right:13%;height:36%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:5px;padding:7px;background:#14140d;border:4px ridge #775727;border-radius:12px;box-shadow:0 10px 24px #000}
+.cell{background:linear-gradient(#322b1b,#211d14);border:1px solid #665536;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:22px;position:relative}.cell.on{background:#50442a;animation:drop .35s cubic-bezier(.2,.9,.2,1.3)}@keyframes drop{from{transform:translateY(-22px) scale(.7);opacity:.2}}.cell.preview{box-shadow:inset 0 0 0 3px #e3b452;background:#59451f}
+#pieceArea{position:absolute;z-index:4;top:53%;left:4%;right:4%;height:10%;display:flex;align-items:center;justify-content:center}#piece{display:flex;gap:3px;touch-action:none}.block{width:43px;height:43px;border-radius:7px;border:2px solid #e0b95b;background:linear-gradient(#b77c2e,#704415);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 5px 8px #000}
+#hint{position:absolute;z-index:3;top:64%;left:4%;right:4%;min-height:6%;text-align:center;font-size:10px;padding:6px;background:#080906dc;border:1px solid #735429;border-radius:8px}
+#buttons{position:absolute;z-index:3;left:3%;right:3%;bottom:2%;display:grid;grid-template-columns:1fr 1fr;gap:6px}button{min-height:45px;border:1px solid #89642b;border-radius:9px;background:linear-gradient(#3b2a15,#1b150b);color:#f6dfaa;font-weight:850;font-size:11px;box-shadow:0 3px 8px #000}.gold{background:linear-gradient(#9b6118,#50300b)}button:active{transform:scale(.96)}
+#safe{display:none;position:absolute;inset:0;z-index:20;padding:max(18px,env(safe-area-inset-top)) 15px calc(10px + env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 5%,#553a18,#080905 57%)}#safe h2{text-align:center;font:900 23px Georgia;color:#efc15d;margin:5px}.sub{text-align:center;font-size:10px}
+#sgrid{height:54%;margin:15px auto;max-width:360px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:7px}.sc{background:#29271b;border:1px solid #70613e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative}.sc.empty{opacity:.2}.belt{position:absolute;left:10%;right:10%;top:49%;height:6px;background:#7cab72;border-radius:5px}.sc.bad{border:2px solid #d95239;animation:warn .55s infinite alternate}.sc.bad .belt{background:#c39361;transform:rotate(-27deg);transform-origin:left}@keyframes warn{to{transform:scale(1.05);box-shadow:0 0 14px #d95239}}
+#smsg{text-align:center;font-size:11px;min-height:30px}.dispatch{width:100%;height:60px;font-size:18px;background:linear-gradient(#a3451e,#581e0e);border:2px solid #ca913d}
+#start{position:absolute;inset:0;z-index:30;background:#050604f5;display:flex;align-items:center;justify-content:center;padding:25px;text-align:center}.hero{font-size:39px;animation:hero 2s infinite alternate}@keyframes hero{to{transform:scale(1.08) rotate(2deg);filter:drop-shadow(0 0 12px #c98a34)}}#start h1{font:900 30px Georgia;color:#efbd59;text-shadow:0 3px #000}#start p{font-size:11px;line-height:1.65}.spark{position:absolute;z-index:25;width:5px;height:5px;border-radius:50%;background:#e8bd5b;animation:sp .8s forwards}@keyframes sp{to{transform:translate(var(--x),var(--y));opacity:0}}
+</style></head><body><div id="app"><header><div class="title">TEMPLE<br>EXPEDITION<br><small>LOADING PUZZLE</small></div><div class="stat">SCORE <b id="score">0</b><br>EMPTY <b id="empty">12</b></div></header>
+<section id="scene"><div class="wall"></div><i class="decor sk">💀</i><i class="decor ht">🎩</i><i class="decor sn">🐍</i><i class="decor py">🔺</i>
+<div id="party"><div class="next">NEXT GROUP<br><b id="num">--</b> 名様</div><div class="single">🧍 SINGLE RIDER<br>STOCK <b id="sr">3</b></div></div><div id="board"></div><div id="pieceArea"><div id="piece"></div></div><div id="hint">人数ブロックを3×4の座席へドラッグ</div><div id="buttons"><button onclick="next()">👥 次の組</button><button onclick="single()">🧍 シングル補充</button><button onclick="resetCar()">↩ リセット</button><button class="gold" onclick="safety()">🔐 安全確認へ</button></div></section>
+<div id="safe"><h2>💀 SAFETY CHECK 🎩</h2><div class="sub">未装着のベルトだけ赤く光ります。そこだけタップ！</div><div id="sgrid"></div><div id="smsg"></div><button class="dispatch" id="go" onclick="dispatch()">🚙 出 発 / DISPATCH</button></div>
+<div id="start"><div><div class="hero">💀 🎩 🐍 🔺</div><h1>TEMPLE<br>EXPEDITION</h1><p>縦画面専用。人数ブロックを3×4の車両へ配置し、空席を最小化。<br>安全確認では未装着ベルトだけ対応します。</p><button class="gold" onclick="startGame()">▶ EXPEDITION OPEN</button></div></div>
+<audio id="music" src="./adventure_original.wav" loop></audio></div>
 <script>
-const $=x=>document.getElementById(x),faces=['👨🏻','👩🏻','🧑🏽','👩🏼','🧔🏻','👨🏼','👩🏽','🧑🏻','👩🏻','👨🏽','🧑🏼','👩🏼'];
-let seats=Array(12).fill(null),locks=Array(12).fill(false),party=null,singles=3,score=0,total=0,emptyTotal=0,checked=false,pid=0;
-function msg(x){$('msg').textContent=x}function freeCount(){return seats.filter(x=>!x).length}
-function update(){$('score').textContent=score;$('gc').textContent=total;$('sr').textContent=singles;$('emptyTotal').textContent=emptyTotal;render();$('nextBtn').disabled=!!party||freeCount()===0}
-function render(){let h='';for(let r=0;r<3;r++){h+='<div class="row">';for(let c=0;c<4;c++){let i=r*4+c,s=seats[i];h+=`<div class="seat ${s?'filled':''} ${locks[i]?'lock':''}" onclick="seatTap(${i})">${s?s.face:''}${s?'<i class="bar"></i>':''}</div>`}h+='</div>'}$('rows').innerHTML=h}
-function startGame(){$('start').classList.add('hidden');$('bgm').volume=.34;$('bgm').play().catch(()=>{});newParty()}
-function newParty(){
- if(party){msg('現在のグループを先に案内してください。');return}
- let free=freeCount();
- // BUG FIX: full vehicle goes directly to safety flow instead of creating an impossible party.
- if(free===0){$('partySize').textContent='満席';$('hint').textContent='次の組を呼ばず、安全確認へ';msg('12席すべて埋まりました。安全確認へ進んでください。');return}
- let choices=[1,2,2,3,3,4,4,5,5,6].filter(n=>n<=free);
- // If no full party fits, don't lock the state; allow safety/singles.
- if(!choices.length){$('partySize').textContent='--';msg('この車両に案内できる組がありません。安全確認へ。');return}
- let size=choices[Math.floor(Math.random()*choices.length)];party={size,id:++pid};$('partySize').textContent=size;$('hint').textContent=size>=5?'複数列に分けて案内できます':'';msg(`${size}名様。開始する席をタップしてください。`);update()
-}
-function freeRuns(){let a=[];for(let r=0;r<3;r++){let st=-1;for(let c=0;c<=4;c++){let f=c<4&&!seats[r*4+c];if(f&&st<0)st=c;if((!f||c===4)&&st>=0){a.push({r,start:st,len:c-st});st=-1}}}return a}
-function seatTap(i){if(!party){msg(freeCount()===0?'満席です。安全確認へ。':'「次の組」でゲストを呼んでください。');return}if(seats[i]){msg('その席は使用中です。');return}
- let need=party.size, chosen=[],r=Math.floor(i/4),c=i%4;
- for(let x=c;x<4&&chosen.length<need;x++){let k=r*4+x;if(!seats[k])chosen.push(k);else break}
- let remain=need-chosen.length;
- if(remain){for(let run of freeRuns().filter(x=>x.r!==r).sort((a,b)=>b.len-a.len)){for(let x=run.start;x<run.start+run.len&&remain;x++){chosen.push(run.r*4+x);remain--}if(!remain)break}}
- if(chosen.length<need){msg('この配置では全員座れません。別の席から案内してください。');return}
- chosen.forEach((k,j)=>seats[k]={face:faces[(party.id+j)%12],party:party.id});score+=need*8;total+=need;let was=need;party=null;$('partySize').textContent='--';$('hint').textContent='';checked=false;locks.fill(false);update();
- if(freeCount()===0){msg(`${was}名様をご案内。満席！ 次は安全確認です。`)}
- else msg(`${was}名様をご案内。残り${freeCount()}席。次の組かシングルライダーを判断。`)
-}
-function useSingles(){let empty=seats.map((x,i)=>x?null:i).filter(x=>x!==null);if(!empty.length){msg('満席です。安全確認へ。');return}if(!singles){msg('シングルライダーのストックがありません。');return}let n=Math.min(singles,empty.length);for(let j=0;j<n;j++)seats[empty[j]]={face:'🧍',party:'S'};singles-=n;total+=n;score+=n*10;party=null;$('partySize').textContent='--';$('hint').textContent='';locks.fill(false);checked=false;update();msg(freeCount()===0?`シングル${n}名で満席！安全確認へ。`:`シングル${n}名を案内。残り${freeCount()}席。`)}
-function openInspect(){if(party){party=null;$('partySize').textContent='--';$('hint').textContent='';msg('次の組の案内を見送り、安全確認へ移ります。')}if(!seats.some(Boolean)){msg('まだ乗車ゲストがいません。');return}$('inspect').style.display='block';renderInspect()}
-function renderInspect(){let h='',done=0,occupied=0;for(let i=0;i<12;i++){let s=seats[i];if(s)occupied++;if(locks[i])done++;h+=`<div class="is ${!s?'empty':''} ${locks[i]?'ok':''}" onclick="lockSeat(${i})">${s?s.face:'—'}${s?'<i class="checkbar"></i>':''}<span>${!s?'EMPTY':locks[i]?'✓ SECURE':'PULL BAR'}</span></div>`}$('ig').innerHTML=h;$('scanFill').style.width=(occupied?done/occupied*100:0)+'%'}
-function lockSeat(i){if(!seats[i]||locks[i])return;locks[i]=true;score+=3;navigator.vibrate?.(18);renderInspect();update()}
-function finishInspect(){for(let i=0;i<12;i++)if(seats[i]&&!locks[i]){msg('まだ安全バーを確認していないゲストがいます。');return}checked=true;$('inspect').style.display='none';msg('ALL CLEAR。DISPATCHできます。');score+=35;update()}
-function closeInspect(){$('inspect').style.display='none'}
-function dispatch(){if(!checked){msg('安全確認が完了していません。');score-=20;update();return}let empty=freeCount(),pen=empty*35;score-=pen;emptyTotal+=empty;if(!empty){score+=120;msg('PERFECT LOAD！満席出発 +120点')}else msg(`空席${empty}席で出発 -${pen}点`);seats.fill(null);locks.fill(false);checked=false;party=null;singles=Math.min(8,singles+(Math.random()<.7?1:2));$('partySize').textContent='--';$('hint').textContent='';update();setTimeout(newParty,500)}
-render();update();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+const $=x=>document.getElementById(x),F=['👨🏻','👩🏻','🧑🏽','👩🏼','🧔🏻','👨🏼','👩🏽','🧑🏻','👩🏻','👨🏽','🧑🏼','👩🏼'];let S=Array(12).fill(null),G=null,sr=3,score=0,bad=[],drag=false;
+function render(pre=[]){$('board').innerHTML=S.map((x,i)=>`<div data-i="${i}" class="cell ${x?'on':''} ${pre.includes(i)?'preview':''}">${x||''}</div>`).join('');$('score').textContent=score;$('empty').textContent=S.filter(x=>!x).length;$('sr').textContent=sr}
+function piece(){$('piece').innerHTML=G?Array.from({length:G},(_,i)=>`<div class="block">${F[i]}</div>`).join(''):'';$('num').textContent=G||'--'}
+function next(){if(G)return;let f=S.filter(x=>!x).length;if(!f){$('hint').textContent='満席！安全確認へ';return}let a=[1,2,2,3,3,4,4,5,5,6].filter(x=>x<=f);G=a[Math.floor(Math.random()*a.length)];piece();$('hint').textContent=`${G}名ブロックを座らせたい席へドラッグ`}
+function cand(i){if(!G)return[];let o=[],r=Math.floor(i/4),c=i%4;for(let x=c;x<4&&o.length<G;x++){let k=r*4+x;if(S[k])break;o.push(k)}for(let rr=0;rr<3&&o.length<G;rr++)if(rr!==r)for(let cc=0;cc<4&&o.length<G;cc++){let k=rr*4+cc;if(!S[k])o.push(k)}return o.length===G?o:[]}
+function place(i){let a=cand(i);if(!a.length)return;a.forEach((k,j)=>S[k]=F[j]);score+=G*10;G=null;piece();render();fx();next()}
+$('piece').onpointerdown=e=>{if(G){drag=true;$('piece').setPointerCapture(e.pointerId)}};$('piece').onpointermove=e=>{if(!drag)return;let c=document.elementsFromPoint(e.clientX,e.clientY).find(x=>x.classList?.contains('cell'));render(c?cand(+c.dataset.i):[])};$('piece').onpointerup=e=>{if(!drag)return;drag=false;let c=document.elementsFromPoint(e.clientX,e.clientY).find(x=>x.classList?.contains('cell'));if(c)place(+c.dataset.i);else render()}
+function single(){let e=S.map((x,i)=>x?null:i).filter(x=>x!==null),n=Math.min(sr,e.length);for(let i=0;i<n;i++)S[e[i]]='🧍';sr-=n;score+=n*15;render();fx()}
+function resetCar(){S.fill(null);G=null;piece();render();next()}
+function safety(){if(!S.some(Boolean))return;G=null;piece();bad=[];S.forEach((x,i)=>{if(x&&Math.random()<.18)bad.push(i)});$('safe').style.display='block';safeRender()}
+function safeRender(){$('sgrid').innerHTML=S.map((x,i)=>`<div onclick="fix(${i})" class="sc ${!x?'empty':''} ${bad.includes(i)?'bad':''}">${x||'—'}${x?'<i class="belt"></i>':''}</div>`).join('');$('smsg').textContent=bad.length?`⚠️ 未装着 ${bad.length}名`:'✓ ALL CLEAR';$('go').disabled=bad.length>0}
+function fix(i){let k=bad.indexOf(i);if(k>=0){bad.splice(k,1);score+=25;navigator.vibrate?.(25);safeRender();fx()}}
+function dispatch(){let e=S.filter(x=>!x).length;score+=e?-(e*35):150;S.fill(null);sr=Math.min(7,sr+1);$('safe').style.display='none';render();next()}
+function fx(){for(let i=0;i<8;i++){let s=document.createElement('i');s.className='spark';s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',(Math.random()*120-60)+'px');s.style.setProperty('--y',(Math.random()*120-80)+'px');$('app').appendChild(s);setTimeout(()=>s.remove(),850)}}
+function startGame(){$('start').style.display='none';$('music').volume=.28;$('music').play().catch(()=>{});next()}render();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
 </script></body></html>
